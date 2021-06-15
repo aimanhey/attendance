@@ -1,6 +1,6 @@
-package com.example.repository;
+package com.example.attendance.repository;
 
-import com.example.model.user;
+import com.example.attendance.model.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
