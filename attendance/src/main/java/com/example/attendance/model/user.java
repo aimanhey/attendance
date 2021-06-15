@@ -1,11 +1,15 @@
 package com.example.attendance.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Size;
+import javax.persistence.ElementCollection;
 
 @Entity
 public class user {
@@ -26,6 +30,9 @@ public class user {
 
     @Column
     private String name;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    List<Role> roles;
 
     public String getEmail() {
         return email;
@@ -67,6 +74,10 @@ public class user {
         this.password = password;
     }
 
-
-
+    public List<Role> getRoles() {
+        return roles;
+    }
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 }
