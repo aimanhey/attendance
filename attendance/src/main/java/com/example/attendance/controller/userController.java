@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.RequestScope;
-
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +27,7 @@ public class userController {
 
     @Autowired
     private userService userService;
-  
+
     @Autowired
     private ModelMapper modelMapper;
 
@@ -39,6 +39,17 @@ public class userController {
             @ApiResponse(code = 422, message = "Username is already in use") })
     public String signup(@ApiParam("Signup User") @RequestBody userDTO user) {
         return userService.signup(modelMapper.map(user, user.class));
+    }
+
+    @PostMapping("/signin")
+    @ApiOperation(value = "${UserController.signin}")
+    @ApiResponses(value = { //
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 422, message = "Invalid username/password supplied") })
+    public String login(//
+            @ApiParam("Username") @RequestParam String username, //
+            @ApiParam("Password") @RequestParam String password) {
+        return userService.signin(username, password);
     }
 
 }
