@@ -13,6 +13,6 @@ A system which equipped with authentication and authorisation system that store 
 - [x] Attend
   - Store file (evidence of attendance) with date (Multipart/form-data)
   - Needs to JWT key to attend (Header)
-- []  Update attendance
-- []  Delete attendance
-- []  Delete user (admin role)
+- [ ]  Update attendance
+- [ ]  Delete attendance
+- [ ]  Delete user (admin role)
