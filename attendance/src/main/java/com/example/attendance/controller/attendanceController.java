@@ -10,12 +10,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.example.attendance.dto.attendanceDTO;
 import com.example.attendance.model.Attendance;
 import com.example.attendance.model.user;
 import com.example.attendance.service.attendanceService;
 import com.example.attendance.service.userService;
-
 
 import org.hibernate.query.criteria.internal.expression.function.CurrentDateFunction;
 import org.modelmapper.ModelMapper;
@@ -31,14 +32,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
-
 
 @RestController
 @RequestMapping("/attendance")
@@ -51,14 +50,7 @@ public class attendanceController {
     @Autowired
     private ModelMapper modelMapper;
 
-    
-    
     private attendanceDTO attendance;
-
-    
-    
-
-
 
     @PostMapping("/attend")
     @ApiOperation(value = "${AttendanceController.attend}")
@@ -67,28 +59,30 @@ public class attendanceController {
             @ApiResponse(code = 422, message = "Invalid username/password supplied") })
     public String attend(//
             @ApiParam("Username") @RequestPart String username, //
-            @ApiParam("Picture") @RequestPart MultipartFile evidence) throws IOException {
-                String fileName = StringUtils.cleanPath(evidence.getOriginalFilename());
-               
+            @ApiParam("Picture") @RequestPart MultipartFile evidence,HttpServletRequest req) throws IOException {
+        String fileName = StringUtils.cleanPath(evidence.getOriginalFilename());
+            
+        String mkn= req.getHeader("Authorization");
+        System.out.println(mkn);
 
-                 Attendance attend = new Attendance();
-                 attend.setUsername(username);
-                attend.setImage(fileName);
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
-                Date date = new Date();  
-                System.out.println(formatter.format(date));  
-                attend.setDate(date);
-                
-                Path uploadPath = Paths.get("./src/main/resources/static/");
-                try (InputStream inputStream = evidence.getInputStream()) {
-                    Path filePath = uploadPath.resolve(fileName);
-                    Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-                } catch (IOException ioe) {        
-                    throw new IOException("Could not save image file: " + fileName, ioe);
-                }  
-                 
-               return attendanceService.save(attend);
-       // return attendanceService.save(modelMapper.map(attendance, Attendance.class));
+        Attendance attend = new Attendance();
+        attend.setUsername(username);
+        attend.setImage(fileName);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        System.out.println(formatter.format(date));
+        attend.setDate(date);
+
+        Path uploadPath = Paths.get("./src/main/resources/static/");
+        try (InputStream inputStream = evidence.getInputStream()) {
+            Path filePath = uploadPath.resolve(fileName);
+            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ioe) {
+            throw new IOException("Could not save image file: " + fileName, ioe);
+        }
+
+        return attendanceService.save(attend);
+        // return attendanceService.save(modelMapper.map(attendance, Attendance.class));
     }
 
 }
