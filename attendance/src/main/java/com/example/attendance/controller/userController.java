@@ -1,6 +1,6 @@
 package com.example.attendance.controller;
 
-import com.example.attendance.dto.userDTO;
+import com.example.attendance.dto.UserDTO;
 import com.example.attendance.model.Users;
 import com.example.attendance.service.UserService;
 
@@ -37,7 +37,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 422, message = "Username is already in use") })
-    public String signup(@ApiParam("Signup User") @RequestBody userDTO user) {
+    public String signup(@ApiParam("Signup User") @RequestBody UserDTO user) {
         return userService.signup(modelMapper.map(user, Users.class));
     }
 

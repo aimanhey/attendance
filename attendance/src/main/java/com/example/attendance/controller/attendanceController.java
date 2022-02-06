@@ -12,7 +12,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.example.attendance.dto.attendanceDTO;
+import com.example.attendance.dto.AttendanceDTO;
 import com.example.attendance.model.Attendance;
 import com.example.attendance.model.Users;
 import com.example.attendance.service.AttendanceService;
@@ -50,7 +50,7 @@ public class AttendanceController {
     @Autowired
     private ModelMapper modelMapper;
 
-    private attendanceDTO attendance;
+    private AttendanceDTO attendance;
 
     @PostMapping("/attend")
     @ApiOperation(value = "${AttendanceController.attend}")
