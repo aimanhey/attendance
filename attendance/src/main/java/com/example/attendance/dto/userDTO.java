@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.example.attendance.model.Role;
 
-public class userDTO {
+public class UserDTO {
     @ApiModelProperty(position = 0)
     private String username;
     @ApiModelProperty(position = 1)

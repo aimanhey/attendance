@@ -7,18 +7,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.attendance.model.Role;
-import com.example.attendance.model.user;
-import com.example.attendance.repository.userRespository;
+import com.example.attendance.model.Users;
+import com.example.attendance.repository.UserRespository;
 
 @Service
 public class MyUserDetails implements UserDetailsService {
 
   @Autowired
-  private userRespository userRepository;
+  private UserRespository userRepository;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    final user user = userRepository.findByUsername(username);
+    final Users user = userRepository.findByUsername(username);
 
     if (user == null) {
       throw new UsernameNotFoundException("User '" + username + "' not found");

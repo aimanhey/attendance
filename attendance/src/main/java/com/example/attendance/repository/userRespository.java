@@ -1,13 +1,13 @@
 package com.example.attendance.repository;
 
-import com.example.attendance.model.user;
+import com.example.attendance.model.Users;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface userRespository extends JpaRepository<user,Integer> {
+public interface UserRespository extends JpaRepository<Users,Integer> {
 
-    user findByUsername(String username);
+    Users findByUsername(String username);
 
     boolean existsByUsername(String username);
     

@@ -2,8 +2,8 @@ package com.example.attendance.service;
 
 import com.example.attendance.exception.CustomException;
 import com.example.attendance.model.Attendance;
-import com.example.attendance.model.user;
-import com.example.attendance.repository.attendanceRepository;
+import com.example.attendance.model.Users;
+import com.example.attendance.repository.AttendanceRepository;
 import com.example.attendance.security.JwtTokenProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class attendanceService {
+public class AttendanceService {
 
   @Autowired
-  private attendanceRepository attendanceRepository;
+  private AttendanceRepository attendanceRepository;
 
   public String save(Attendance attendance) {
 

@@ -1,8 +1,8 @@
 package com.example.attendance.service;
 
 import com.example.attendance.exception.CustomException;
-import com.example.attendance.model.user;
-import com.example.attendance.repository.userRespository;
+import com.example.attendance.model.Users;
+import com.example.attendance.repository.UserRespository;
 import com.example.attendance.security.JwtTokenProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class userService {
+public class UserService {
     
     @Autowired
-    private userRespository userRepository;
+    private UserRespository userRepository;
   
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -29,7 +29,7 @@ public class userService {
     private AuthenticationManager authenticationManager;
 
 
-    public String signup(user user) {
+    public String signup(Users user) {
         if (!userRepository.existsByUsername(user.getUsername())) {
           user.setPassword(passwordEncoder.encode(user.getPassword()));
           userRepository.save(user);

@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.example.attendance.dto.attendanceDTO;
 import com.example.attendance.model.Attendance;
-import com.example.attendance.model.user;
-import com.example.attendance.service.attendanceService;
-import com.example.attendance.service.userService;
+import com.example.attendance.model.Users;
+import com.example.attendance.service.AttendanceService;
+import com.example.attendance.service.UserService;
 
 import org.hibernate.query.criteria.internal.expression.function.CurrentDateFunction;
 import org.modelmapper.ModelMapper;
@@ -42,10 +42,10 @@ import io.swagger.annotations.Authorization;
 @RestController
 @RequestMapping("/attendance")
 @Api(tags = "attendance")
-public class attendanceController {
+public class AttendanceController {
 
     @Autowired
-    private attendanceService attendanceService;
+    private AttendanceService attendanceService;
 
     @Autowired
     private ModelMapper modelMapper;

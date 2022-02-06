@@ -1,8 +1,8 @@
 package com.example.attendance.controller;
 
 import com.example.attendance.dto.userDTO;
-import com.example.attendance.model.user;
-import com.example.attendance.service.userService;
+import com.example.attendance.model.Users;
+import com.example.attendance.service.UserService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +23,10 @@ import io.swagger.annotations.Authorization;
 @RestController
 @RequestMapping("/users")
 @Api(tags = "users")
-public class userController {
+public class UserController {
 
     @Autowired
-    private userService userService;
+    private UserService userService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -38,7 +38,7 @@ public class userController {
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 422, message = "Username is already in use") })
     public String signup(@ApiParam("Signup User") @RequestBody userDTO user) {
-        return userService.signup(modelMapper.map(user, user.class));
+        return userService.signup(modelMapper.map(user, Users.class));
     }
 
     @PostMapping("/signin")

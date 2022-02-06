@@ -4,7 +4,7 @@ import java.util.Date;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class attendanceDTO {
+public class AttendanceDTO {
 
    
     @ApiModelProperty(position = 0)
