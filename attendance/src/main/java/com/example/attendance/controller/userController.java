@@ -37,7 +37,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 422, message = "Username is already in use") })
-    public String signup(@ApiParam("Signup User") @RequestBody UserDTO user) {
+    public Object signup(@ApiParam("Signup User") @RequestBody UserDTO user) {
         return userService.signup(modelMapper.map(user, Users.class));
     }
 
@@ -46,10 +46,11 @@ public class UserController {
     @ApiResponses(value = { //
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 422, message = "Invalid username/password supplied") })
-    public String login(//
-            @ApiParam("Username") @RequestParam String username, //
-            @ApiParam("Password") @RequestParam String password) {
-        return userService.signin(username, password);
+          //  @ApiParam("Username") @RequestParam String username, //
+           // @ApiParam("Password") @RequestParam String password
+            public String login(@RequestBody UserDTO nakauth
+            ) {
+        return userService.signin(nakauth.getUsername(),nakauth.getPassword());
     }
 
 }

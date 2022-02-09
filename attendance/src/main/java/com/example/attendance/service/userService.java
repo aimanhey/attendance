@@ -12,41 +12,51 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class UserService {
-    
-    @Autowired
-    private UserRespository userRepository;
-  
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-  
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-  
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
+  @Autowired
+  private UserRespository userRepository;
 
-    public String signup(Users user) {
-        if (!userRepository.existsByUsername(user.getUsername())) {
-          user.setPassword(passwordEncoder.encode(user.getPassword()));
-          userRepository.save(user);
-          return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
-        } else {
-          throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-      }
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
-      public String signin(String username, String password) {
-        try {
-          authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-          return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
-        } catch (AuthenticationException e) {
-          throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-      }
-    
+  @Autowired
+  private JwtTokenProvider jwtTokenProvider;
+
+  @Autowired
+  private AuthenticationManager authenticationManager;
+
+  public Object signup(Users user) {
+    if (!userRepository.existsByUsername(user.getUsername())) {
+      user.setPassword(passwordEncoder.encode(user.getPassword()));
+      userRepository.save(user);
+      String token = jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+      Map<String, Object> map = new HashMap<String, Object>();
+      map.put("id", user.getId());
+      map.put("email", user.getEmail());
+      map.put("username", user.getUsername());
+      map.put("name", user.getName());
+
+      Map<String, Object> maps = new HashMap<String, Object>();
+      maps.put("data", map);
+      maps.put("token", token);
+      return maps;
+    } else {
+      throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+  }
+
+  public String signin(String username, String password) {
+    try {
+      authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+      return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
+    } catch (AuthenticationException e) {
+      throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+  }
 
 }
