@@ -1,5 +1,6 @@
 package com.example.attendance.model;
 
+import java.time.Instant;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -30,6 +31,8 @@ public class Users {
 
     @Column
     private String name;
+
+    //private Instant createdDate;
 
     @ElementCollection(fetch = FetchType.EAGER)
     List<Role> roles;
@@ -80,4 +83,12 @@ public class Users {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+    /*
+    public Instant getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setEmail(Instant createdDate) {
+        this.createdDate = createdDate;
+    }*/
 }

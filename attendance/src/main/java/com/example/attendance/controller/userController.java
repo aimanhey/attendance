@@ -1,11 +1,15 @@
 package com.example.attendance.controller;
 
+import java.util.List;
+
 import com.example.attendance.dto.UserDTO;
 import com.example.attendance.model.Users;
 import com.example.attendance.service.UserService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +55,14 @@ public class UserController {
             public String login(@RequestBody UserDTO nakauth
             ) {
         return userService.signin(nakauth.getUsername(),nakauth.getPassword());
+    }
+
+    @GetMapping("/users")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public List<Users> listOfUsers(){
+
+        return userService.getUsers();
+
     }
 
 }
