@@ -1,6 +1,7 @@
 package com.example.attendance.service;
 
 import com.example.attendance.exception.CustomException;
+import com.example.attendance.model.Role;
 import com.example.attendance.model.Users;
 import com.example.attendance.repository.UserRespository;
 import com.example.attendance.security.JwtTokenProvider;
@@ -12,6 +13,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,12 +39,19 @@ public class UserService {
     if (!userRepository.existsByUsername(user.getUsername())) {
       user.setPassword(passwordEncoder.encode(user.getPassword()));
       userRepository.save(user);
+      System.out.println("ludah");
+      if(user.getRoles()==null){
+        List<Role> list=new ArrayList<Role>();
+        list.add(Role.ROLE_CLIENT);
+        user.setRoles(list);
+      }
       String token = jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
       Map<String, Object> map = new HashMap<String, Object>();
       map.put("id", user.getId());
       map.put("email", user.getEmail());
       map.put("username", user.getUsername());
       map.put("name", user.getName());
+      map.put("ROLE", user.getRoles());
 
       Map<String, Object> maps = new HashMap<String, Object>();
       maps.put("data", map);

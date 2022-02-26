@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.persistence.ElementCollection;
 
@@ -33,7 +34,7 @@ public class Users {
     private String name;
 
     //private Instant createdDate;
-
+    
     @ElementCollection(fetch = FetchType.EAGER)
     List<Role> roles;
 

@@ -41,12 +41,12 @@ public class Attendance {
 
     @Column(name="image_location")
     private String image;
-
+/*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="id", referencedColumnName = "id")
     private Users user;
 
-/*
+
     public Integer getAttendId(){
         return attendId;
     }
