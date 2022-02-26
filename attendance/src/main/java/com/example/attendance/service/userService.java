@@ -38,13 +38,13 @@ public class UserService {
   public Object signup(Users user) {
     if (!userRepository.existsByUsername(user.getUsername())) {
       user.setPassword(passwordEncoder.encode(user.getPassword()));
-      userRepository.save(user);
       System.out.println("ludah");
       if(user.getRoles()==null){
         List<Role> list=new ArrayList<Role>();
         list.add(Role.ROLE_CLIENT);
         user.setRoles(list);
       }
+      userRepository.save(user);
       String token = jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
       Map<String, Object> map = new HashMap<String, Object>();
       map.put("id", user.getId());
