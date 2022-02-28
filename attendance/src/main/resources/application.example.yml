@@ -7,7 +7,7 @@ spring:
     tomcat:
       max-wait: 20000
       max-active: 50
-      max-idle: 20
+      max-idle: 21
       min-idle: 15
   jpa:
     hibernate:
