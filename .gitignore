@@ -2,5 +2,7 @@
 E_YqCK_VgAANr3-.jpg
 FEzuF7_WQAs0SL0.jpg
 sijil sakit.jpeg
-vscode/
-**/src/main/resources/application.yml
+
+
+.vscode/
+attendance/src/main/resources/application.yml
