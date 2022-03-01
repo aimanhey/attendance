@@ -20,6 +20,17 @@ spring:
         id:
           new_generator_mappings: false
 
+  mail:
+    host: smtp.hostinger.com
+    port: 465
+    username: your-email
+    password: your-email
+    protocol: smtp
+    properties:
+      "mail.smtp.ssl.enable": true
+      mail:
+        smtp:
+          auth: true
 server:
    port: 8080 # This is the default port anyway, but you can change it here
 

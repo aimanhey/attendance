@@ -1,6 +1,7 @@
 package com.example.attendance.service;
 
 import com.example.attendance.exception.CustomException;
+import com.example.attendance.model.NotificationEmail;
 import com.example.attendance.model.Role;
 import com.example.attendance.model.Users;
 import com.example.attendance.repository.UserRespository;
@@ -35,6 +36,9 @@ public class UserService {
   @Autowired
   private AuthenticationManager authenticationManager;
 
+  @Autowired
+  private EmailService emailService;
+
   public Object signup(Users user) {
     if (!userRepository.existsByUsername(user.getUsername())) {
       user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -56,7 +60,12 @@ public class UserService {
       Map<String, Object> maps = new HashMap<String, Object>();
       maps.put("data", map);
       maps.put("token", token);
+      emailService.sendMail(new NotificationEmail("Please Activate your Account",
+      user.getEmail(), "Thank you for signing up to Spring Reddit, " +
+      "please click on the below url to activate your account : " +
+      "http://localhost:8080/api/auth/accountVerification/" + token));
       return maps;
+
     } else {
       throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
     }
