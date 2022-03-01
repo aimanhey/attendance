@@ -1,0 +1,31 @@
+POST http://localhost:8080/users/signup
+Content-Type: application/json
+
+{
+    "username":"username",
+    "email":"aiman.anderil@gmail.com",
+    "password":"password",
+    "name":"",
+    "roles":[
+    "ROLE_ADMIN"
+  ]
+}
+
+###
+
+POST http://localhost:8080/users/signin?username=username&password=password
+###
+
+POST https://api.example.com/user/upload
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="text"
+
+title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="1.png"
+Content-Type: image/png
+
+<
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
