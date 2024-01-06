@@ -6,7 +6,7 @@ A system which equipped with authentication and authorisation system that store 
   - Details (JSON)
   - Encrypted password
   - Provide JWT key
-  - Role 
+  - Role-Based Access Control 
 - [x] Login
   - Username and password (String Parameter) Noted: It is impratical to authenticate such method but I meant to do so.
   - Provide JWT key
